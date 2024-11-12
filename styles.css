@@ -1,0 +1,172 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --max-size: 100px;
+}
+
+.game-board {
+  max-width: 100vw;
+  min-height: 100vh;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  /* align-items: center;
+  justify-items:center; */
+  grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+  border: 1px solid black;
+  width: var(--max-size);
+  height: var(--max-size);
+  cursor:pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cell.X,.cell.O{
+    cursor:not-allowed;
+}
+
+.cell.X::before,
+.cell.X::after{
+    content:"";
+    width: calc(var(--max-size)*.15);
+    height: calc(var(--max-size)*.9);
+    background-color: black;
+    position: absolute;
+}
+
+.cell.X::before{
+    transform: rotate(45deg);
+}
+
+.cell.X::after{
+    transform: rotate(-45deg);
+}
+
+.game-board.X .cell:not(.cell.X):not(.cell.O):hover::before,
+.game-board.X .cell:not(.cell.X):not(.cell.O):hover::after{
+    content:"";
+    width: calc(var(--max-size)*.15);
+    height: calc(var(--max-size)*.9);
+    background-color: hsla(0, 0%, 38%, 0.2);
+    position: absolute;
+}
+.game-board.X .cell:not(.cell.X):not(.cell.O):hover::before{
+    transform: rotate(45deg);
+}
+.game-board.X .cell:not(.cell.X):not(.cell.O):hover::after{
+    transform: rotate(-45deg);
+}
+
+
+
+.cell.O::before,
+.cell.O::after{
+    content:"";
+    position: absolute;
+    border-radius: 50%;
+}
+
+.cell.O::before{
+    width: calc(var(--max-size)*.9);
+    height: calc(var(--max-size)*.9);
+    background-color: black;
+}
+
+.cell.O::after{
+    width: calc(var(--max-size)*.7);
+    height: calc(var(--max-size)*.7);
+    background-color: white;
+}
+
+
+.game-board.O .cell:not(.cell.O):not(.cell.X):hover::before,
+.game-board.O .cell:not(.cell.O):not(.cell.X):hover::after{
+    content:"";
+    position: absolute;
+    border-radius: 50%;
+}
+
+.game-board.O .cell:not(.cell.O):not(.cell.X):hover::before{
+    width: calc(var(--max-size)*.9);
+    height: calc(var(--max-size)*.9);
+    background-color: hsla(0, 0%, 38%, 0.2);
+}
+
+.game-board.O .cell:not(.cell.O):not(.cell.X):hover::after{
+    width: calc(var(--max-size)*.7);
+    height: calc(var(--max-size)*.7);
+    background-color: white;
+}
+
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top:none;
+}
+
+.cell:nth-child(3n+1){
+    border-left:none
+}
+
+.cell:nth-child(3n+3){
+    border-right:none;
+}
+
+.cell:nth-last-child(n),
+.cell:nth-child(8),
+.cell:nth-child(7){
+    border-bottom: none;
+}
+
+
+
+.winning-message-container{
+    display:none;
+    position:fixed;
+    background-color:rgba(0,0,0,0.9);
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    flex-direction: column;
+    gap:16px;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:3rem;
+}
+
+.winning-message-container button{
+    font-size :1.5rem;
+    padding:.5em .75em;
+    border:1px solid black;
+    border-radius:8px;
+
+}
+
+
+.winning-message-container button:hover{
+   color:white;
+   background-color: black;
+   border:1px solid white;
+   cursor:pointer;
+}
+
+.winning-message-container.show{
+    display:flex;
+}
